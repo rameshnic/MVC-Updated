@@ -14,7 +14,7 @@ namespace MVCApp1.Controllers
             HttpClient client = new HttpClient();
             HttpResponseMessage response = null;
            
-            response = await client.GetAsync("http://localhost:23892/api/My");
+            response = await client.GetAsync("http://apibackend:8080/api/My");
             
             response.EnsureSuccessStatusCode();
             string ResponseBody=await response.Content.ReadAsStringAsync();
@@ -46,7 +46,7 @@ namespace MVCApp1.Controllers
                 };
                 var PerInfoSer = JsonConvert.SerializeObject(PreInfo);
                 var ReqContent = new StringContent(PerInfoSer, Encoding.UTF8, "application/json");
-                var Res = await client.PostAsync("http://localhost:23892/api/My", ReqContent);
+                var Res = await client.PostAsync("http://apibackend:8080/api/My", ReqContent);
                 Res.EnsureSuccessStatusCode();
                 var content = await Res.Content.ReadAsStringAsync();
                 var CreatedInfo = JsonConvert.DeserializeObject<PersionalInfo>(content);
@@ -61,7 +61,7 @@ namespace MVCApp1.Controllers
                 };
                 var PerInfoSer = JsonConvert.SerializeObject(PreInfo);
                 var ReqContent = new StringContent(PerInfoSer, Encoding.UTF8, "application/json");
-                var Res = await client.PutAsync("http://localhost:23892/api/My", ReqContent);
+                var Res = await client.PutAsync("http://apibackend:8080/api/My", ReqContent);
                 Res.EnsureSuccessStatusCode();
                 var content = await Res.Content.ReadAsStringAsync();
                 var CreatedInfo = JsonConvert.DeserializeObject<PersionalInfo>(content);
@@ -79,7 +79,7 @@ namespace MVCApp1.Controllers
             if (id != 0)
             {
                 HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync("http://localhost:23892/api/My/GetId/" + id);
+                HttpResponseMessage response = await client.GetAsync("http://apibackend:8080/api/My/GetId/" + id);
                 response.EnsureSuccessStatusCode();
                 string ResponseBody = await response.Content.ReadAsStringAsync();
                 ViewBag.ResponseById = JsonConvert.DeserializeObject(ResponseBody);
@@ -99,7 +99,7 @@ namespace MVCApp1.Controllers
              if (id != 0)
             {
                 HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.DeleteAsync("http://localhost:23892/api/My?id=" + id);
+                HttpResponseMessage response = await client.DeleteAsync("http://apibackend:8080/api/My?id=" + id);
                 response.EnsureSuccessStatusCode();
                 string ResponseBody = await response.Content.ReadAsStringAsync();
                 var res = JsonConvert.DeserializeObject(ResponseBody);
