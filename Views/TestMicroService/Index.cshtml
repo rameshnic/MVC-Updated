@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+@model MVCApp1.Models.PersionalInfo
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<h1>Index</h1>
+
+<form asp-action="PostData" asp-controller="TestMicroService" method="post">
+    <input type="hidden" name="Id" value="@Model.Rec_Id" />
+
+<div class="row">
+    <div class="col-2">
+        <label>Name</label>
+    </div>
+    <div class="col-3">
+        <input id="txtName" name="name" value="@Model.Name"></input>
+    </div>
+    <div class="col-2">
+        <label>Mobile No.</label>
+    </div>
+    <div class="col-3">
+        <input id="txtMobileNo" name="mobileNo" maxlength="10" value="@Model.MobileNo"></input>
+    </div>
+    <div class="col-2">
+            @if (@Model.Rec_Id == null || @Model.Rec_Id ==0)
+            {
+                <button id="btnSave" title="Save" type="submit" class="btn btn-primary">Save</button>
+            }
+            else
+            {
+                <button id="btnUpdate" title="Save" type="submit" class="btn btn-primary">Update</button>
+            }
+
+            
+            <a href=@Url.Action("Index", "TestMicroService",new{Id=0}) class="btn btn-primary">Reset</a>
+            @*@Html.ActionLink("Reset","Index")*@
+    </div>
+</div>
+</form>
+<div class="row">
+    <div class="col-3">
+        <label>Name</label>
+    </div>
+    <div class="col-3">
+        <label>Mobile No.</label>
+    </div>
+    <div class="col-2">
+        </div>
+    <div class="col-2">
+    </div>
+    </div>
+@foreach (var Item in ViewBag.ResponseBody)
+{
+    
+    <div class="row">
+       
+        <div class="col-3">
+            @Item.name
+        </div>        
+        <div class="col-3">
+            @Item.mobileNo
+        </div>
+        <div class="col-2">
+            @*<a href=@ TestMicroService/Edit/@Item.rec_Id>Edit</a>*@
+            @Html.ActionLink("Edit","Edit",new{Id=Item.rec_Id}) 
+            </div>
+        <div class="col-2">
+            @Html.ActionLink("Delete","Delete",new{Id=Item.rec_Id})
+        </div>
+    </div>
+    
+}
